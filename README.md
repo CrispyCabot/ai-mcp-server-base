@@ -81,3 +81,47 @@ The MCP server runs using Streamable HTTP (which uses SSE for events). To connec
 4.  Send the request.
 
 You should see an event stream open. The server will send an endpoint URL in the `endpoint` event, which you can use for subsequent POST requests (JSON-RPC) to interact with tools and resources.
+
+### Deployment (Docker)
+
+This project includes a `Dockerfile` and `compose.yaml` for easy deployment.
+
+#### Run with Docker Compose
+
+To run the MCP server:
+
+```bash
+docker compose up --build
+```
+
+The server will be available at `http://localhost:8000`.
+
+#### Build Docker Image
+
+To build the Docker image manually:
+
+```bash
+docker build -t mcp-server .
+```
+
+#### Run Docker Container
+
+To run the container (you can provide the `DB_DSN` environment variable if you have an external database):
+
+```bash
+docker run -p 8000:8000 -e DB_DSN="postgresql://user:password@host:5432/dbname" mcp-server
+```
+
+### Deployment (Render)
+
+1.  Push your code to a GitHub repository.
+2.  Log in to [Render](https://render.com/).
+3.  Click **New +** and select **Web Service**.
+4.  Connect your GitHub repository.
+5.  Render will automatically detect the `Dockerfile`.
+6.  **Important**: In the configuration:
+    *   **Runtime**: Docker
+    *   **Environment Variables**: Add `DB_DSN` if you have a database connection string.
+7.  Click **Create Web Service**.
+
+Render will build your Docker image and deploy it. You will get a public URL (e.g., `https://your-app.onrender.com`) where your MCP server is accessible.

@@ -1,11 +1,12 @@
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
+import os
 
 import asyncpg
 from mcp.server.fastmcp import FastMCP, Context
 
-# Placeholder database credentials - USER TO REPLACE
-DB_DSN = "postgresql://user:password@localhost:5432/dbname"
+# Database credentials
+DB_DSN = os.getenv("DB_DSN", "postgresql://user:password@localhost:5432/dbname")
 
 @asynccontextmanager
 async def server_lifespan(server: FastMCP) -> AsyncIterator[dict]:

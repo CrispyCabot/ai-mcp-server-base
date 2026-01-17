@@ -1,0 +1,8 @@
+services:
+  mcp-server:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Provide your database connection string here when available
+      - DB_DSN=postgresql://user:password@host:5432/dbname
