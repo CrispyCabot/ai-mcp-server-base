@@ -3,7 +3,7 @@ from typing import AsyncIterator
 import os
 
 import asyncpg
-from mcp.server.fastmcp import FastMCP, Context
+from fastmcp import FastMCP, Context
 
 # Database credentials
 DB_DSN = os.getenv("DB_DSN", "postgresql://user:password@localhost:5432/dbname")
@@ -77,4 +77,4 @@ def sql_helper(table_name: str) -> str:
     return f"Please write a SQL query to select all columns from the table '{table_name}' where the created_at date is after 2024-01-01."
 
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http")
+    mcp.run(transport="http", port=8000)
